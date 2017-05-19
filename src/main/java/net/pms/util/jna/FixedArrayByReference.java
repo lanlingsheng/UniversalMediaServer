@@ -40,7 +40,11 @@ public abstract class FixedArrayByReference<E> extends PointerType {
 	 */
 	public FixedArrayByReference(long fixedSize) {
 		super();
-		size = fixedSize;
+		size = Math.max(fixedSize, 0);
+		if (size > 0) {
+			// Allocate new memory
+			super.setPointer(new Memory(getElementSize() * size));
+		}
 	}
 
 	/** The array size. */

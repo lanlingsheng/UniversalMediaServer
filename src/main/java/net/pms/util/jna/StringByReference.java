@@ -127,6 +127,10 @@ public class StringByReference extends PointerType {
 	 *            encoding.
 	 */
 	public void setValue(String value, String charsetName) {
+		if (value == null) {
+			setPointer(Pointer.NULL);
+			return;
+		}
 		try {
 			int length = value.getBytes(charsetName).length;
 			if (length > getAllocatedSize()) {
@@ -181,7 +185,7 @@ public class StringByReference extends PointerType {
 		if (getPointer() instanceof Memory) {
 			return Math.max(((Memory) getPointer()).size() - 1, 0);
 		}
-		return 0;
+		return -1;
 	}
 
 	@Override

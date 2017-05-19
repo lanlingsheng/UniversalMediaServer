@@ -66,7 +66,8 @@ public class SleepManager {
 	 */
 	public synchronized void stopPlaying() {
 		if (playingCount == 0) {
-			throw new IllegalStateException("Cannot decrease playing reference count as it's already zero");
+			LOGGER.error("Sleepmanager cannot decrease playing reference count as it's already zero");
+			return;
 		}
 		playingCount--;
 		if (playingCount == 0 && sleepPrevented && mode == PreventSleepMode.PLAYBACK) {

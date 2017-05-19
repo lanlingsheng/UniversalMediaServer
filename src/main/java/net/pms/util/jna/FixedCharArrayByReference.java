@@ -97,6 +97,10 @@ public class FixedCharArrayByReference extends FixedArrayByReference<Byte> {
 	 * @param charset the {@link Charset} to use for encoding.
 	 */
 	public void setString(String content, Charset charset) {
+		if (content == null) {
+			setPointer(Pointer.NULL);
+			return;
+		}
 		if (size > Integer.MAX_VALUE) {
 			throw new UnsupportedOperationException("Array to big, please write it \"manually\" using getPointer.getX");
 		}
@@ -105,6 +109,9 @@ public class FixedCharArrayByReference extends FixedArrayByReference<Byte> {
 		System.arraycopy(sourceBytes, 0, bytes, 0, Math.min((int) size, sourceBytes.length));
 		if (sourceBytes.length < size) {
 			bytes[sourceBytes.length] = 0;
+		}
+		for (int i = 0; i < bytes.length; i++) {
+			getPointer().setByte(i, bytes[i]);
 		}
 	}
 

@@ -39,7 +39,7 @@ public class PointerArrayByReference extends ArrayByReference<Pointer> {
 	 * @param size the number of {@link Pointer}'s in the array.
 	 */
 	public PointerArrayByReference(long size) {
-		setSize(Pointer.SIZE * size, 0);
+		setSize(size, 0);
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class PointerArrayByReference extends ArrayByReference<Pointer> {
 
 	@Override
 	protected Pointer[] getElements() {
-		return getPointer().getPointerArray(0, (int) size);
+		return getPointer() == null ? null : getPointer().getPointerArray(0, (int) size);
 	}
 
 	@Override

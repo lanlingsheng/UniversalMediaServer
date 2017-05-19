@@ -69,6 +69,10 @@ public class UTF16StringByReference extends PointerType {
 	 * @param value the new string content.
 	 */
 	public void setValue(String value) {
+		if (value == null) {
+			setPointer(Pointer.NULL);
+			return;
+		}
 		if (getNumberOfBytes(value) > getAllocatedSize()) {
 			setPointer(new Memory(getNumberOfBytes(value) + 2));
 		}
@@ -109,7 +113,7 @@ public class UTF16StringByReference extends PointerType {
 		if (getPointer() instanceof Memory) {
 			return Math.max(((Memory) getPointer()).size() - 2, 0);
 		}
-		return 0;
+		return -1;
 	}
 
 	@Override

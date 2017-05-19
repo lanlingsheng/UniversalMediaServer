@@ -70,6 +70,10 @@ public class WStringByReference extends PointerType {
 	 * @param value the new string content.
 	 */
 	public void setValue(String value) {
+		if (value == null) {
+			setPointer(Pointer.NULL);
+			return;
+		}
 		int length = getNumberOfBytes(value);
 		if (length > getAllocatedSize()) {
 			setPointer(new Memory(length + Native.WCHAR_SIZE));
@@ -96,7 +100,7 @@ public class WStringByReference extends PointerType {
 		if (getPointer() instanceof Memory) {
 			return Math.max(((Memory) getPointer()).size() - Native.WCHAR_SIZE, 0);
 		}
-		return 0;
+		return -1;
 	}
 
 	@Override
